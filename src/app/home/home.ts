@@ -1,6 +1,7 @@
 import { Component, computed, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { form, FormField, FormRoot, required } from '@angular/forms/signals';
+import { Activite } from '../services/activite';
 
 interface ObjectifFormModel {
   objectifText: string;
@@ -17,6 +18,9 @@ export class Home {
   // constructor(private monRouteur: Router) {}
   // 가독성, 타입 추론, 상속
   private readonly monRouteur = inject(Router);
+
+  // TP5 1.2 (앱 전체에서 같은 인스턴스 하나를 공유)
+  private readonly activiteService = inject(Activite);
 
   protected readonly btnText = signal('Ajouter un item');
   protected readonly objectifs = signal<string[]>([]);
