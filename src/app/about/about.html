@@ -1,1 +1,9 @@
 <p>about works!</p>
+
+<ol>
+  @for (objectif of objectifs(); track $index) {
+    <li>{{ objectif }}</li>
+  } @empty {
+    <li>Aucun objectif pour le moment.</li>
+  }
+</ol>
