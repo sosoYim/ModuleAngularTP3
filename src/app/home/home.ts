@@ -23,7 +23,8 @@ export class Home {
   private readonly activiteService = inject(Activite);
 
   protected readonly btnText = signal('Ajouter un item');
-  protected readonly objectifs = signal<string[]>([]);
+  // TP5 1.3: 목록은 서비스가 보관하고, Home은 같은 signal을 참조만 함 (복사본을 만들지 않음)
+  protected readonly objectifs = this.activiteService.objectifs;
   protected readonly nbItems = computed(() => this.objectifs().length);
 
   // TP4 1.4: 입력 폼 표시 여부
@@ -55,6 +56,7 @@ export class Home {
   }
 
   private ajoutItem(objectif: string): void {
-    this.objectifs.update((list) => [...list, objectif]);
+    // TP5 1.3: 목록 수정은 서비스의 메서드를 통해 수행
+    this.activiteService.addItem(objectif);
   }
 }
