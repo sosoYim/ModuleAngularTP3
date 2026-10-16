@@ -9,12 +9,10 @@
 
 .color-dark {
   background: #2885C4;
-  transform: rotate(2deg); // TP4 3.1
 }
 
 .color-light {
   background: #57B3F1;
-  transform: rotate(-2deg); // TP4 3.1
 }
 
 input.txt {
@@ -32,8 +30,7 @@ button.btn {
   color: rgb(229, 239, 247);
   margin-bottom: 1em;
   cursor: pointer;
-  transform: translateX(40%); // TP4 3.1
-  // TP4 3.2: animate color and size changes instead of switching instantly
+  // TP4 3.2: 색상과 크기가 바뀔 때 즉시 바뀌지 않고 서서히 변하도록 전환 효과 지정
   transition: background-color .8s ease, transform .3s ease;
 }
 
@@ -41,15 +38,15 @@ button.btn:disabled {
   cursor: not-allowed;
 }
 
-// TP4 3.2: the input contains text, the button turns green progressively
+// TP4 3.2: 입력값이 유효하면(글자가 있으면) 버튼이 서서히 초록색으로 바뀜
 button.btn.btn-ready {
   background-color: #7DC66F;
 }
 
-// TP4 3.2: hovering a ready button shows a darker green and a bigger button
+// TP4 3.2: 활성 상태 버튼에 마우스를 올리면 진한 초록색으로 바뀌고 커짐
 button.btn.btn-ready:hover {
   background-color: #45922D;
-  transform: translateX(40%) scale(1.15);
+  transform: scale(1.15);
 }
 
 .error {

@@ -16,13 +16,13 @@ export class Home {
   protected readonly objectifs = signal<string[]>([]);
   protected readonly nbItems = computed(() => this.objectifs().length);
 
-  // TP4 1.4: whether the input form is visible
+  // TP4 1.4: 입력 폼 표시 여부
   protected readonly formVisible = signal(false);
 
-  // Form data model: the single source of truth for the input value.
+  // 폼 데이터 모델: 입력값의 단일 진실 공급원(single source of truth)
   private readonly objectifModel = signal<ObjectifFormModel>({ objectifText: '' });
 
-  // Field tree built from the model, with validation rules and submit handling.
+  // 모델로부터 만든 필드 트리: 검증 규칙과 제출 처리를 함께 정의
   protected readonly objectifForm = form(
     this.objectifModel,
     (path) => {
