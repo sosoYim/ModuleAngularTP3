@@ -9,23 +9,31 @@
 
 <div class="container color-light">
   <div class="col">
-    <p>Un nouvel élément de liste</p>
-    <form [formRoot]="objectifForm">
-      <input type="text" class="txt" placeholder="..." [formField]="objectifForm.objectifText">
+    <button type="button" class="btn-toggle" (click)="toggleForm()">
+      {{ formVisible() ? 'Fermer' : 'Ajouter' }}
+    </button>
 
-      @if (objectifForm.objectifText().touched() && objectifForm.objectifText().invalid()) {
-        @for (error of objectifForm.objectifText().errors(); track error.kind) {
-          <p class="error">{{ error.message }}</p>
-        }
-      }
+    @if (formVisible()) {
+      <div animate.enter="form-enter" animate.leave="form-leave">
+        <p>Un nouvel élément de liste</p>
+        <form [formRoot]="objectifForm">
+          <input type="text" class="txt" placeholder="..." [formField]="objectifForm.objectifText">
 
-      <p>{{ objectifForm.objectifText().value() }}</p>
-      <button type="submit" class="btn" [disabled]="objectifForm().invalid()">{{ btnText() }}</button>
-    </form>
+          @if (objectifForm.objectifText().touched() && objectifForm.objectifText().invalid()) {
+            @for (error of objectifForm.objectifText().errors(); track error.kind) {
+              <p class="error">{{ error.message }}</p>
+            }
+          }
+
+          <p>{{ objectifForm.objectifText().value() }}</p>
+          <button type="submit" class="btn" [disabled]="objectifForm().invalid()">{{ btnText() }}</button>
+        </form>
+      </div>
+    }
   </div>
   <div class="col">
     @for (objectif of objectifs(); track $index) {
-      <p class="life-container">{{ objectif }}</p>
+      <p class="life-container" animate.enter="animation-ajout">{{ objectif }}</p>
     }
   </div>
 </div>

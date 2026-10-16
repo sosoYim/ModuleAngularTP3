@@ -48,3 +48,63 @@ button.btn:disabled {
   font-weight: bold;
   cursor: pointer;
 }
+
+.animation-ajout {
+  animation: slide-fade 1s;
+}
+
+@keyframes slide-fade {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+    background: #2ECC71;
+  }
+  50% {
+    background: #7FD8BE;
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    background: #3FA0E1;
+  }
+}
+
+button.btn-toggle {
+  border: 0;
+  padding: .8em 2.5em;
+  margin: 1em 0;
+  border-radius: 6px;
+  background: #2C55B8;
+  color: #fff;
+  cursor: pointer;
+}
+
+.form-enter {
+  animation: form-open .4s ease-out;
+}
+
+.form-leave {
+  animation: form-close .3s ease-in forwards;
+}
+
+@keyframes form-open {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes form-close {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+}

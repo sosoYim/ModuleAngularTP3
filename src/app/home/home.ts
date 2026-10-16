@@ -16,6 +16,9 @@ export class Home {
   protected readonly objectifs = signal<string[]>([]);
   protected readonly nbItems = computed(() => this.objectifs().length);
 
+  // TP4 1.4: whether the input form is visible
+  protected readonly formVisible = signal(false);
+
   // Form data model: the single source of truth for the input value.
   private readonly objectifModel = signal<ObjectifFormModel>({ objectifText: '' });
 
@@ -34,6 +37,10 @@ export class Home {
       },
     },
   );
+
+  protected toggleForm(): void {
+    this.formVisible.update((visible) => !visible);
+  }
 
   private ajoutItem(objectif: string): void {
     this.objectifs.update((list) => [...list, objectif]);
