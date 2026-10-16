@@ -51,6 +51,11 @@ export class Home {
     },
   );
 
+  // TP5 1.6: 선택한 항목의 인덱스를 URL에 붙여 상세 페이지로 이동 -> /consultAct/0, /consultAct/1 ...
+  protected voirDetail(index: number): void {
+    this.monRouteur.navigate(['/consultAct', index]);
+  }
+
   protected toggleForm(): void {
     this.formVisible.update((visible) => !visible);
   }
