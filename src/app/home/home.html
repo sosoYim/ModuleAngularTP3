@@ -3,7 +3,7 @@
     <p>Un élément de liste</p>
   </div>
   <div class="col">
-    <p>Ma liste d'éléments</p>
+    <p>Ma liste d'éléments ({{ nbItems }})</p>
   </div>
 </div>
 
@@ -11,11 +11,14 @@
   <div class="col">
     <p>Un nouvel élément de liste</p>
     <form>
-      <input type="text" class="txt" placeholder="...">
-      <input type="submit" class="btn" value="Envoyer">
+      <input type="text" class="txt" name="objectif" placeholder="..." [(ngModel)]="objectifText">
+      <p>{{ objectifText }}</p>
+      <input type="submit" class="btn" [value]="btnText" (click)="ajoutItem()">
     </form>
   </div>
   <div class="col">
-    <p class="life-container">Un bloc</p>
+    @for (objectif of objectifs; track $index) {
+      <p class="life-container">{{ objectif }}</p>
+    }
   </div>
 </div>
