@@ -1,9 +1,40 @@
-.btn-supprimer {
+.actions {
+  display: flex;
+  gap: .3em;
+}
+
+.actions button {
   border: 0;
   border-radius: 4px;
   padding: .6em 1.2em;
   font-size: 1em;
-  background: #D9534F;
   color: #fff;
   cursor: pointer;
+}
+
+.actions button:disabled {
+  opacity: .5;
+  cursor: not-allowed;
+}
+
+.btn-supprimer {
+  background: #D9534F;
+}
+
+.btn-modifier {
+  background: #2F7DF6;
+}
+
+.btn-retour {
+  background: #4CA64C;
+}
+
+.txt-titre {
+  font-size: 1em;
+  padding: .2em .4em;
+}
+
+.error {
+  color: #ffe08a;
+  font-weight: bold;
 }

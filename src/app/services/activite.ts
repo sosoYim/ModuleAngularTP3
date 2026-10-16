@@ -21,4 +21,8 @@ export class Activite {
       return copie;
     });
   }
+
+  updateItem(index: number, titre: string): void {
+    this._objectifs.update((list) => list.map((objectif, i) => (i === index ? titre : objectif)));
+  }
 }

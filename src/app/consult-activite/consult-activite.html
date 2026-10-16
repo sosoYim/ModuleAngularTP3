@@ -3,12 +3,39 @@
 
 <!-- 인덱스 0도 정상 처리되도록 truthy 검사가 아니라 undefined 여부로 분기 -->
 @if (activite() !== undefined) {
-  <ol>
-    <li>Nom de l'activité: <strong>{{ activite() }}</strong></li>
-  </ol>
+  <!-- TP5 1.9: 폼 제출(Sauvegarder 버튼 또는 Enter)은 formRoot가 받아 submission.action 실행 -->
+  <form [formRoot]="titreForm">
+    <ol>
+      <li>
+        Nom de l'activité:
+        @if (enEdition()) {
+          <input type="text" class="txt-titre" [formField]="titreForm">
+        } @else {
+          <strong>{{ activite() }}</strong>
+        }
+      </li>
+    </ol>
 
-  <!-- TP5 1.8: 현재 활동을 삭제하는 버튼 -->
-  <button type="button" class="btn-supprimer" (click)="supprimeElem(index())">Supprimer</button>
+    @if (enEdition() && titreForm().invalid()) {
+      @for (error of titreForm().errors(); track error.kind) {
+        <p class="error">{{ error.message }}</p>
+      }
+    }
+
+    <div class="actions">
+      <!-- TP5 1.8: 현재 활동을 삭제하는 버튼 -->
+      <button type="button" class="btn-supprimer" (click)="supprimeElem(index())">Supprimer</button>
+
+      @if (enEdition()) {
+        <!-- TP5 1.9: 저장 (submit -> formRoot -> sauvegarder) -->
+        <button type="submit" class="btn-modifier" [disabled]="titreForm().invalid()">Sauvegarder</button>
+      } @else {
+        <!-- TP5 1.9: 편집 시작 / 메인 페이지로 돌아가기 -->
+        <button type="button" class="btn-modifier" (click)="modifier()">Modifier</button>
+        <button type="button" class="btn-retour" (click)="retour()">Retour</button>
+      }
+    </div>
+  </form>
 } @else {
   <p>Activité introuvable.</p>
 }

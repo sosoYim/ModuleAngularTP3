@@ -1,9 +1,10 @@
-import { Component, computed, inject, input } from '@angular/core';
+import { Component, computed, inject, input, linkedSignal } from '@angular/core';
+import { form, FormField, FormRoot, required } from '@angular/forms/signals';
 import { Router } from '@angular/router';
 import { Activite } from '../services/activite';
 
 @Component({
-  imports: [],
+  imports: [FormRoot, FormField],
   selector: 'app-consult-activite',
   styleUrl: './consult-activite.scss',
   templateUrl: './consult-activite.html',
@@ -32,6 +33,41 @@ export class ConsultActivite {
   // TP5 1.8: 삭제할 요소의 인덱스를 받아 서비스에서 삭제한 뒤 메인 페이지로 이동
   protected supprimeElem(index: number): void {
     this.activiteService.removeItem(index);
+    this.monRouteur.navigate(['/']);
+  }
+
+  // TP5 1.9: 편집 모드 여부
+  // linkedSignal: 다른 활동(index)으로 이동하면 자동으로 false로 초기화
+  // -> 라우터가 컴포넌트를 재사용해도 편집 모드가 다음 활동으로 넘어가지 않음
+  protected readonly enEdition = linkedSignal({
+    source: this.index,
+    computation: () => false,
+  });
+
+  private readonly titreEdite = linkedSignal(() => this.activite() ?? '');
+
+  protected readonly titreForm = form(
+    this.titreEdite,
+    (titre) => {
+      required(titre, { message: 'Le titre ne peut pas être vide.' });
+    },
+    {
+      submission: {
+        action: async () => this.sauvegarder(),
+      },
+    },
+  );
+
+  protected modifier(): void {
+    this.enEdition.set(true);
+  }
+
+  private sauvegarder(): void {
+    this.activiteService.updateItem(this.index(), this.titreEdite());
+    this.enEdition.set(false);
+  }
+
+  protected retour(): void {
     this.monRouteur.navigate(['/']);
   }
 }
