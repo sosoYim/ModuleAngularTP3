@@ -1,0 +1,15 @@
+<p>consult-activite works!</p>
+
+<!-- TP4 4.8: 전달받은 파라미터 표시 -->
+<h3>Test récupération des paramètres:</h3>
+<ol>
+  <!-- TP4 4.10: 파라미터 개수에 따라 @if로 표시 분기 -->
+  @if (id()) {
+    <li>Paramètre 1 transmis: <strong>{{ id() }}</strong></li>
+  } @else {
+    <li>Aucun paramètre transmis</li>
+  }
+  @if (id2()) {
+    <li>Paramètre 2 transmis: <strong>{{ id2() }}</strong></li>
+  }
+</ol>
