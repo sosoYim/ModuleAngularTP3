@@ -1,25 +1,41 @@
-import { Component, OnInit } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { Component, computed, signal } from '@angular/core';
+import { form, FormField, FormRoot, required } from '@angular/forms/signals';
+
+interface ObjectifFormModel {
+  objectifText: string;
+}
 
 @Component({
-  imports: [FormsModule],
+  imports: [FormRoot, FormField],
   selector: 'app-home',
   styleUrl: './home.scss',
   templateUrl: './home.html',
 })
-export class Home implements OnInit {
-  nbItems: number = 4;
-  btnText: string = 'Ajouter un item';
-  objectifText: string = '';
-  objectifs: string[] = [];
+export class Home {
+  protected readonly btnText = signal('Ajouter un item');
+  protected readonly objectifs = signal<string[]>([]);
+  protected readonly nbItems = computed(() => this.objectifs().length);
 
-  ngOnInit(): void {
-    this.nbItems = this.objectifs.length;
-  }
+  // Form data model: the single source of truth for the input value.
+  private readonly objectifModel = signal<ObjectifFormModel>({ objectifText: '' });
 
-  ajoutItem(): void {
-    this.objectifs.push(this.objectifText);
-    this.objectifText = '';
-    this.nbItems = this.objectifs.length;
+  // Field tree built from the model, with validation rules and submit handling.
+  protected readonly objectifForm = form(
+    this.objectifModel,
+    (path) => {
+      required(path.objectifText, { message: 'Veuillez saisir un objectif.' });
+    },
+    {
+      submission: {
+        action: async (field) => {
+          this.ajoutItem(field().value().objectifText);
+          field().reset({ objectifText: '' });
+        },
+      },
+    },
+  );
+
+  private ajoutItem(objectif: string): void {
+    this.objectifs.update((list) => [...list, objectif]);
   }
 }

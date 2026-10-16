@@ -3,21 +3,28 @@
     <p>Un élément de liste</p>
   </div>
   <div class="col">
-    <p>Ma liste d'éléments ({{ nbItems }})</p>
+    <p>Ma liste d'éléments ({{ nbItems() }})</p>
   </div>
 </div>
 
 <div class="container color-light">
   <div class="col">
     <p>Un nouvel élément de liste</p>
-    <form>
-      <input type="text" class="txt" name="objectif" placeholder="..." [(ngModel)]="objectifText">
-      <p>{{ objectifText }}</p>
-      <input type="submit" class="btn" [value]="btnText" (click)="ajoutItem()">
+    <form [formRoot]="objectifForm">
+      <input type="text" class="txt" placeholder="..." [formField]="objectifForm.objectifText">
+
+      @if (objectifForm.objectifText().touched() && objectifForm.objectifText().invalid()) {
+        @for (error of objectifForm.objectifText().errors(); track error.kind) {
+          <p class="error">{{ error.message }}</p>
+        }
+      }
+
+      <p>{{ objectifForm.objectifText().value() }}</p>
+      <button type="submit" class="btn" [disabled]="objectifForm().invalid()">{{ btnText() }}</button>
     </form>
   </div>
   <div class="col">
-    @for (objectif of objectifs; track $index) {
+    @for (objectif of objectifs(); track $index) {
       <p class="life-container">{{ objectif }}</p>
     }
   </div>

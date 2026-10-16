@@ -22,7 +22,7 @@ input.txt {
   margin-bottom: 2em;
 }
 
-input.btn {
+button.btn {
   border: 0;
   display: block;
   padding: 1em 3em;
@@ -30,6 +30,16 @@ input.btn {
   color: rgb(229, 239, 247);
   margin-bottom: 1em;
   cursor: pointer;
+}
+
+button.btn:disabled {
+  opacity: .5;
+  cursor: not-allowed;
+}
+
+.error {
+  color: #ffe08a;
+  font-weight: bold;
 }
 
 .life-container {
