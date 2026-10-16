@@ -9,10 +9,12 @@
 
 .color-dark {
   background: #2885C4;
+  transform: rotate(2deg); // TP4 3.1
 }
 
 .color-light {
   background: #57B3F1;
+  transform: rotate(-2deg); // TP4 3.1
 }
 
 input.txt {
@@ -26,15 +28,28 @@ button.btn {
   border: 0;
   display: block;
   padding: 1em 3em;
-  background: rgba(230, 35, 10, 0.726);
+  background-color: rgba(230, 35, 10, 0.726);
   color: rgb(229, 239, 247);
   margin-bottom: 1em;
   cursor: pointer;
+  transform: translateX(40%); // TP4 3.1
+  // TP4 3.2: animate color and size changes instead of switching instantly
+  transition: background-color .8s ease, transform .3s ease;
 }
 
 button.btn:disabled {
-  opacity: .5;
   cursor: not-allowed;
+}
+
+// TP4 3.2: the input contains text, the button turns green progressively
+button.btn.btn-ready {
+  background-color: #7DC66F;
+}
+
+// TP4 3.2: hovering a ready button shows a darker green and a bigger button
+button.btn.btn-ready:hover {
+  background-color: #45922D;
+  transform: translateX(40%) scale(1.15);
 }
 
 .error {

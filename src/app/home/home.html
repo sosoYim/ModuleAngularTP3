@@ -26,7 +26,7 @@
           }
 
           <p>{{ objectifForm.objectifText().value() }}</p>
-          <button type="submit" class="btn" [disabled]="objectifForm().invalid()">{{ btnText() }}</button>
+          <button type="submit" class="btn" [class.btn-ready]="objectifForm().valid()" [disabled]="objectifForm().invalid()">{{ btnText() }}</button>
         </form>
       </div>
     }
