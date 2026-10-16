@@ -45,7 +45,7 @@ export class Home {
           this.ajoutItem(field().value().objectifText);
           field().reset({ objectifText: '' });
           // TP4 4.4: 항목 추가 1초 후 about 페이지로 이동
-          setTimeout(() => this.monRouteur.navigate(['/about']), 1000);
+          // setTimeout(() => this.monRouteur.navigate(['/about']), 1000);
         },
       },
     },
