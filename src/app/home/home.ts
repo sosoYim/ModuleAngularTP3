@@ -1,4 +1,5 @@
-import { Component, computed, signal } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
+import { Router } from '@angular/router';
 import { form, FormField, FormRoot, required } from '@angular/forms/signals';
 
 interface ObjectifFormModel {
@@ -12,6 +13,11 @@ interface ObjectifFormModel {
   templateUrl: './home.html',
 })
 export class Home {
+  // TP4 4.3: Router 주입 (TP의 생성자 매개변수 방식 대신 최신 권장 방식인 inject() 사용)
+  // constructor(private monRouteur: Router) {}
+  // 가독성, 타입 추론, 상속
+  private readonly monRouteur = inject(Router);
+
   protected readonly btnText = signal('Ajouter un item');
   protected readonly objectifs = signal<string[]>([]);
   protected readonly nbItems = computed(() => this.objectifs().length);
@@ -33,6 +39,8 @@ export class Home {
         action: async (field) => {
           this.ajoutItem(field().value().objectifText);
           field().reset({ objectifText: '' });
+          // TP4 4.4: 항목 추가 1초 후 about 페이지로 이동
+          setTimeout(() => this.monRouteur.navigate(['/about']), 1000);
         },
       },
     },
